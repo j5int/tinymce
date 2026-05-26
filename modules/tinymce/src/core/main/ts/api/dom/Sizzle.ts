@@ -516,23 +516,6 @@ setDocument = Sizzle.setDocument = function (node) {
   // Support tests
   documentIsHTML = !isXML(doc);
 
-  // Support: IE>8
-  // If iframe document is assigned to "document" variable and if iframe has been reloaded,
-  // IE will throw "permission denied" error when accessing "document" variable, see jQuery #13936
-  // IE6-8 do not support the defaultView property so parent will be undefined
-  if (parent && parent !== getTop(parent)) {
-    // IE11 does not have attachEvent, so all must suffer
-    if (parent.addEventListener) {
-      parent.addEventListener('unload', () => {
-        setDocument();
-      }, false);
-    } else if (parent.attachEvent) {
-      parent.attachEvent('onunload', () => {
-        setDocument();
-      });
-    }
-  }
-
   /* Attributes
   ---------------------------------------------------------------------- */
 
