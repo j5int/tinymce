@@ -490,19 +490,7 @@ isXML = Sizzle.isXML = function (elem) {
  */
 setDocument = Sizzle.setDocument = function (node) {
   let hasCompare,
-    doc = node ? node.ownerDocument || node : preferredDoc,
-    parent = doc.defaultView;
-
-  function getTop(win) {
-    // Edge throws a lovely Object expected if you try to get top on a detached reference see #2642
-    try {
-      return win.top;
-    } catch (ex) {
-      // Ignore
-    }
-
-    return null;
-  }
+    doc = node ? node.ownerDocument || node : preferredDoc;
 
   // If no document and documentElement is available, return
   if (doc === document || doc.nodeType !== 9 || !doc.documentElement) {
