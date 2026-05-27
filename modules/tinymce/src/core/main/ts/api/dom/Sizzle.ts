@@ -490,19 +490,7 @@ isXML = Sizzle.isXML = function (elem) {
  */
 setDocument = Sizzle.setDocument = function (node) {
   let hasCompare,
-    doc = node ? node.ownerDocument || node : preferredDoc,
-    parent = doc.defaultView;
-
-  function getTop(win) {
-    // Edge throws a lovely Object expected if you try to get top on a detached reference see #2642
-    try {
-      return win.top;
-    } catch (ex) {
-      // Ignore
-    }
-
-    return null;
-  }
+    doc = node ? node.ownerDocument || node : preferredDoc;
 
   // If no document and documentElement is available, return
   if (doc === document || doc.nodeType !== 9 || !doc.documentElement) {
@@ -515,23 +503,6 @@ setDocument = Sizzle.setDocument = function (node) {
 
   // Support tests
   documentIsHTML = !isXML(doc);
-
-  // Support: IE>8
-  // If iframe document is assigned to "document" variable and if iframe has been reloaded,
-  // IE will throw "permission denied" error when accessing "document" variable, see jQuery #13936
-  // IE6-8 do not support the defaultView property so parent will be undefined
-  if (parent && parent !== getTop(parent)) {
-    // IE11 does not have attachEvent, so all must suffer
-    if (parent.addEventListener) {
-      parent.addEventListener('unload', () => {
-        setDocument();
-      }, false);
-    } else if (parent.attachEvent) {
-      parent.attachEvent('onunload', () => {
-        setDocument();
-      });
-    }
-  }
 
   /* Attributes
   ---------------------------------------------------------------------- */
